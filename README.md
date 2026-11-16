@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>昆山厂区薪资计算器</title>
+    <title>昆山立铠薪资计算器</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f2f2f7; color: #1c1c1e; line-height: 1.5; padding-bottom: 40px; }
@@ -84,7 +84,7 @@
 <div class="container">
     <header>
         <h1>💰 薪资与返费计算器</h1>
-        <div class="subtitle">昆山厂区专用 · 工具仅供参考</div>
+        <div class="subtitle">昆山立铠专用 · 工具仅供参考</div>
     </header>
 
     <!-- ================= 板块一：应发薪资计算 ================= -->
@@ -99,8 +99,8 @@
             <div class="input-item full-width">
                 <label>底薪 (元)</label>
                 <div class="input-wrapper">
-                    <span class="input-icon">🔒</span>
-                    <input type="number" id="base_salary" value="2660" readonly>
+                    <span class="input-icon">💰</span>
+                    <input type="number" id="base_salary" placeholder="请输入(默认2660)">
                 </div>
             </div>
             <div class="input-item full-width">
@@ -294,10 +294,6 @@
             <label class="radio-item checked" onclick="selectRadio(this)">
                 <input type="radio" name="release_type" value="next_month_15" checked>
                 <span>次月15号在职</span>
-            </label>
-	    <label class="radio-item" onclick="selectRadio(this)">
-                <input type="radio" name="release_type" value="next_month_20">
-                <span>次月20号在职</span>
             </label>
             <label class="radio-item" onclick="selectRadio(this)">
                 <input type="radio" name="release_type" value="after_30_days">
@@ -666,8 +662,6 @@
 
         if (type === 'next_month_15') {
             resultDate = new Date(calcYear, calcMonth, 15); 
-	} else if (type === 'next_month_20') {
-            resultDate = new Date(calcYear, calcMonth, 15);
         } else if (type === 'after_30_days') {
             resultDate = new Date(calcYear, calcMonth, 15); 
         } else if (type === 'next_month_last_day') {
