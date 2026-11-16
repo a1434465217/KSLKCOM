@@ -100,7 +100,7 @@
                 <label>底薪 (元)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">💰</span>
-                    <input type="number" id="base_salary" placeholder="请输入(默认2660)">
+                    <input type="number" id="base_salary" placeholder="请输入">
                 </div>
             </div>
             <div class="input-item full-width">
@@ -282,59 +282,7 @@
         </div>
     </div>
 
-    <!-- ================= 板块三：返费发放时间测算 ================= -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-icon">🗓️</span>
-            <h2>返费发放时间测算</h2>
-        </div>
-        
-        <label style="font-size:13px;font-weight:600;margin-bottom:8px;display:block">请选择协议上的补差要求</label>
-        <div class="radio-group" id="release_type_group">
-            <label class="radio-item checked" onclick="selectRadio(this)">
-                <input type="radio" name="release_type" value="next_month_15" checked>
-                <span>次月15号在职</span>
-            </label>
-            <label class="radio-item" onclick="selectRadio(this)">
-                <input type="radio" name="release_type" value="after_30_days">
-                <span>满30天离职不受限</span>
-            </label>
-            <label class="radio-item" onclick="selectRadio(this)">
-                <input type="radio" name="release_type" value="next_month_last_day">
-                <span>次月最后一天在职</span>
-            </label>
-        </div>
-
-        <button class="btn-calc" onclick="calculatePart3()">测算发放时间</button>
-
-        <div id="part3-result-box" style="display:none; margin-top:16px;">
-            <div class="result-card">
-                <div class="result-header">🎉 预计返费发放日期</div>
-                <div class="result-total" style="border-top:none; padding: 16px; flex-direction: column; align-items: flex-start;">
-                    <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                        <span class="label" style="font-size:14px;color:#000;font-weight:700">发放日期：</span>
-                        <span class="val" id="release_date_result" style="color:#007aff; font-size:16px;">-</span>
-                    </div>
-                    <div style="margin-top:8px; font-size:12px; color:#8e8e93; width:100%; line-height:1.4;">
-                        💡 备注：<span id="release_remark_result">-</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-info">
-        <h4>💡 特别说明</h4>
-        <ul>
-            <li><strong>打包价：</strong>工时 × 工价 - 应发薪资 - 首月餐补折算。</li>
-            <li><strong>差价：</strong>工时 × 工价 - 首月餐补折算。</li>
-            <li><strong>首月餐补：</strong>标准(300元) ÷ 当月总工作日天数 × 剩余可出勤工作日天数。</li>
-            <li><strong>非首月：</strong>若首月未扣满300元，次月补扣差额。</li>
-            </ul>
-    </div>
-</div>
-
-<script>
+    <script>
     // 2026年法定节假日配置表 (true为放假，false为调休上班)
     const holidays2026 = {
         '2026-01-01': true, '2026-01-02': true, '2026-01-03': true, '2026-01-04': false, 
@@ -545,7 +493,7 @@
     }
 
     function calculatePart1() {
-        const baseSalary = parseFloat(document.getElementById('base_salary').value) || 2660;
+        const baseSalary = parseFloat(document.getElementById('base_salary').value) || 0;
         const scheduledDays = parseFloat(document.getElementById('scheduled_days').value) || 0;
         const actualDays = parseFloat(document.getElementById('actual_days').value) || 0;
         
@@ -649,34 +597,7 @@
         const type = document.querySelector('input[name="release_type"]:checked').value;
         const calcMonthVal = document.getElementById('calc_month_picker').value;
         
-        if (!calcMonthVal) { 
-            alert('请先在第一板块选择“需要计算的年份和月份”'); 
-            return; 
-        }
-        
-        const [calcYear, calcMonth] = calcMonthVal.split('-').map(Number);
-        let resultDate = new Date();
-        
-        // 格式化计算月份字符串 (例如: 2026年08月)
-        const calcMonthStr = `${calcYear}年${String(calcMonth).padStart(2, '0')}月`;
-
-        if (type === 'next_month_15') {
-            resultDate = new Date(calcYear, calcMonth, 15); 
-        } else if (type === 'after_30_days') {
-            resultDate = new Date(calcYear, calcMonth, 15); 
-        } else if (type === 'next_month_last_day') {
-            resultDate = new Date(calcYear, calcMonth + 1, 0); 
-        }
-        
-        const resYear = resultDate.getFullYear();
-        const resMonth = String(resultDate.getMonth() + 1).padStart(2, '0');
-        const resDay = String(resultDate.getDate()).padStart(2, '0');
-        const resDateStr = `${resYear}年${resMonth}月${resDay}日`;
-        
-        // 设置新的备注逻辑
-        const remarkText = `本次计算的返费为${calcMonthStr}，${resDateStr}需出勤。`;
-        
-        document.getElementById('release_date_result').innerText = resDateStr;
+               document.getElementById('release_date_result').innerText = resDateStr;
         document.getElementById('release_remark_result').innerText = remarkText;
         document.getElementById('part3-result-box').style.display = 'block';
         document.getElementById('part3-result-box').scrollIntoView({ behavior: 'smooth' });
